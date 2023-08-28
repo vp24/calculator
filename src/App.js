@@ -23,8 +23,12 @@ const CalculatorApp = () => {
 
   const calculate = () => {
     try {
-      // Replace ^ with ** for evaluation
-      const evalExpression = input.replace(/\^/g, '**');
+      let evalExpression = input.replace(/\^/g, '**');
+
+      // Detect and handle implied multiplication with parentheses
+      evalExpression = evalExpression.replace(/(\d)\(/g, '$1*(');
+      evalExpression = evalExpression.replace(/\)(\d)/g, ')*$1');
+
       let currentResult = eval(evalExpression);
       
       // Fixing floating point precision issue
@@ -36,7 +40,7 @@ const CalculatorApp = () => {
     } catch (e) {
       setResult("Error");
     }
-  };
+};
 
   const clearInput = () => {
     setInput("");
