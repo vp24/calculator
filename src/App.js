@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CalculatorApp.css';
+import './App.css';
 
 const CalculatorApp = () => {
   const [input, setInput] = useState("");
@@ -9,7 +9,7 @@ const CalculatorApp = () => {
 
   const handleButtonClick = (value) => {
     if (justCalculated) {
-        if (["+", "-", "*", "/", "**"].includes(value)) {
+        if (["+", "-", "*", "/", "^", "(", ")"].includes(value)) {
             setInput(result + value);
             setJustCalculated(false);
         } else {
@@ -23,7 +23,9 @@ const CalculatorApp = () => {
 
   const calculate = () => {
     try {
-      const currentResult = eval(input);
+      // Replace ^ with ** for evaluation
+      const evalExpression = input.replace(/\^/g, '**');
+      const currentResult = eval(evalExpression);
       setResult(currentResult);
       setHistory(prevHistory => [...prevHistory, { calculation: input, result: currentResult }]);
       setJustCalculated(true);
@@ -46,7 +48,7 @@ const CalculatorApp = () => {
           <div className="result">{result}</div>
         </div>
         <div className="buttons">
-          {['7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+', '**'].map((button) => (
+          {['7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+', '^', '(', ')'].map((button) => (
             <button 
               key={button} 
               onClick={() => button === "=" ? calculate() : handleButtonClick(button)}
