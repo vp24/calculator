@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import 'App.css';
 
 const CalculatorApp = () => {
   const [input, setInput] = useState("");
@@ -25,7 +25,11 @@ const CalculatorApp = () => {
     try {
       // Replace ^ with ** for evaluation
       const evalExpression = input.replace(/\^/g, '**');
-      const currentResult = eval(evalExpression);
+      let currentResult = eval(evalExpression);
+      
+      // Fixing floating point precision issue
+      currentResult = Math.round(currentResult * 1000000) / 1000000;
+
       setResult(currentResult);
       setHistory(prevHistory => [...prevHistory, { calculation: input, result: currentResult }]);
       setJustCalculated(true);
@@ -40,11 +44,18 @@ const CalculatorApp = () => {
     setJustCalculated(false);
   };
 
+  const getFontSize = () => {
+    if (input.length > 10) {
+      return "18px";
+    }
+    return "24px";
+  };
+
   return (
     <div className="calculator-container">
       <div className="calculator">
         <div className="display">
-          <div className="input">{input}</div>
+          <div className="input" style={{ fontSize: getFontSize() }}>{input}</div>
           <div className="result">{result}</div>
         </div>
         <div className="buttons">
