@@ -1,5 +1,3 @@
-/* CalculatorApp.css */
-
 body {
   font-family: 'Arial', sans-serif;
   height: 100vh;
@@ -8,6 +6,13 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #f7f7f7;
+}
+
+.calculator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .calculator {
@@ -35,6 +40,7 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background-color: #888;
+  grid-template-rows: repeat(5, 1fr);
 }
 
 button {
@@ -81,3 +87,25 @@ button[data-clear]:active {
   background-color: #c9302c;
 }
 
+.history {
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.history h2 {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.history ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.history li {
+  border-bottom: 1px solid #eee;
+  padding: 5px 0;
+}
